@@ -1,0 +1,50 @@
+post http://127.0.0.1:8000/api/orders
+Accept: application/json
+Content-Type: application/json
+
+{
+    "customer_id":2,
+    "status":"canceled",
+    "items":[
+        {
+            "product_name":"هاتف ذكي N",
+            "price":300.00,
+            "quantity":1
+        },
+        {
+            "product_name":"سماعات رأس N",
+            "price":75.00,
+            "quantity":2
+        }
+    ]
+}
+
+# POST http://127.0.0.1:8000/api/customers
+# Accept: application/json
+# Content-Type: application/json
+
+# {
+#   "name": "maya",
+#   "phone": "0915184"
+# }
+# POST http://127.0.0.1:8000/api/orders
+# Content-Type: application/json
+
+# {
+#   "customer_id": 1,
+#   "items": [
+#     {
+#       "product_name": "لابتوب A",
+#       "price": 500.00,
+#       "quantity": 2
+#       // Subtotal يجب أن يكون 1000.00
+#     },
+#     {
+#       "product_name": "ماوس لاسلكي",
+#       "price": 25.50,
+#       "quantity": 4
+#       // Subtotal يجب أن يكون 102.00
+#     }
+#   ]
+#   // Order.total يجب أن يكون 1102.00
+# }
