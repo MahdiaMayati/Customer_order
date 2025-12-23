@@ -15,12 +15,6 @@ class OrderItemController extends Controller
         return response()->json(Order_item::all());
     }
 
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request ,Order $order)
     {
         $validated = $request->validate([
@@ -34,19 +28,10 @@ class OrderItemController extends Controller
         return response()->json(['message' => 'Item added and total recalculated.', 'item' => $item], 201);
     }
 
-
-
     public function show(Order_item $order_item)
     {
         return response()->json($order_item);
     }
-
-
-    public function edit(Order_item $order_item)
-    {
-        //
-    }
-
 
     public function update(Request $request, Order_item $order_item)
     {
@@ -60,8 +45,7 @@ class OrderItemController extends Controller
     });
 
     return response()->json(['message' => 'Order item updated and order total recalculated.']);
-}
-
+   }
 
     public function destroy(Order_item $order_item)
     {

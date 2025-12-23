@@ -11,17 +11,10 @@ class CustomerController extends Controller
     public function index()
     {
   return response()->json(Customer::all());
- }
-
-    public function create()
-    {
-        //
-    }
-
+   }
 
     public function store(Request $request)
     {
-
         // dd($request->all());
       $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -38,12 +31,6 @@ class CustomerController extends Controller
     return response()->json($customer);
  }
 
-    public function edit(Customer $customer)
-    {
-        //
-    }
-
-
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
@@ -55,7 +42,6 @@ class CustomerController extends Controller
         return response()->json(['customer' => $customer->refresh()]);
 
     }
-
 
     public function destroy(Customer $customer)
     {

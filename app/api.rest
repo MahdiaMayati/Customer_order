@@ -1,23 +1,23 @@
-post http://127.0.0.1:8000/api/orders
-Accept: application/json
-Content-Type: application/json
+# POST http://127.0.0.1:8000/api/notifications/1/read
+# Accept: application/json
+# Authorization: Bearer
 
-{
-    "customer_id":2,
-    "status":"canceled",
-    "items":[
-        {
-            "product_name":"هاتف ذكي N",
-            "price":300.00,
-            "quantity":1
-        },
-        {
-            "product_name":"سماعات رأس N",
-            "price":75.00,
-            "quantity":2
-        }
-    ]
-}
+# {
+#     "customer_id":2,
+#     "status":"canceled",
+#     "items":[
+#         {
+#             "product_name":"هاتف ذكي N",
+#             "price":300.00,
+#             "quantity":1
+#         },
+#         {
+#             "product_name":"سماعات رأس N",
+#             "price":75.00,
+#             "quantity":2
+#         }
+#     ]
+# }
 
 # POST http://127.0.0.1:8000/api/customers
 # Accept: application/json
@@ -47,4 +47,27 @@ Content-Type: application/json
 #     }
 #   ]
 #   // Order.total يجب أن يكون 1102.00
+# }
+# POST http://127.0.0.1:8000/api/login
+# Content-Type: application/json
+
+# {
+#     "email": "test@example.com",
+#     "password": "123456"
+#     }
+# POST http://127.0.0.1:8000/api/notifications/51ba3af0-0060-47d2-a5be-6fb65cb1d322/read
+# Accept: application/json
+# Authorization: Bearer 4|X17Ljk4gHQyN5w6FdbdPOkNkXSvh0CXXjE0pHgJqa8c922c9
+
+# GET http://127.0.0.1:8000/api/notifications
+# Accept: application/json
+# Authorization: Bearer 3|t0Zz9QKwkNxTZoQ5wGMGwdg6ETScSOqZC5dGaNba31ad37e0
+
+# PATCH   http://127.0.0.1:8000/api/orders/1/status
+# Accept: application/json
+# Content-Type:application/json
+# Authorization:Bearer 3|t0Zz9QKwkNxTZoQ5wGMGwdg6ETScSOqZC5dGaNba31ad37e0
+
+# {
+#     "status": "pending"
 # }

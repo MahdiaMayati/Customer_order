@@ -2,19 +2,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Notifications\ActionFailedNotification;
 use Illuminate\Support\Facades\DB;
+use App\Services\NotificationService;
+use App\Notifications\OrderStatusChangedNotification;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    protected $notificationService;
+
     public function index()
     {
         return response()->json(Order::with('customer', 'items')->get());
-    }
-
-      public function create()
-    {
-
     }
 
     public function store(Request $request)
@@ -48,20 +48,53 @@ class OrderController extends Controller
     {
         return response()->json($order->load('customer', 'items'));
     }
-
-      public function edit()
+//////? الاشعارات
+       public function __construct(NotificationService $notificationService)
     {
+        $this->notificationService = $notificationService;
+    }
+    public function processPayment(Request $request)
+    {
+        try {
 
+            if ($request->amount > auth()->user()->balance) {
+                throw new \Exception("رصيد الحساب غير كافٍ لإتمام العملية");
+            }
+            // منطق معالجة الدفع
+
+        } catch (\Exception $e) {
+
+            $this->notificationService->send(
+                auth()->user(),
+                new ActionFailedNotification($e->getMessage()),
+                ['database']
+            );
+
+            return response()->json([
+                'error' => 'فشلت العملية: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
-    public function updateStatus(Request $request, Order $order)
+   public function updateStatus(Request $request, Order $order)
     {
-        $validated = $request->validate([
-            'status' => 'sometimes|required|in:pending,paid,canceled',
-        ]);
+    $validated = $request->validate([
+        'status' => 'sometimes|required|in:pending,paid,canceled',
+    ]);
+    $order->update($validated);
+    if (isset($validated['status'])) {
+        $this->notificationService->send(
+            $order->customer,
+            // $order->user,
+            new OrderStatusChangedNotification($order),
+            ['database']
+        );
+    }
+    return response()->json([
+        'message' => 'Order updated and notification sent.',
+        'order' => $order
+    ]);
 
-        $order->update($validated);
-        return response()->json(['message' => 'Order updated.', 'order' => $order]);
     }
 
     public function destroy(Order $order)
