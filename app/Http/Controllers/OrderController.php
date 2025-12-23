@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\OrderStatusChanged;
 use App\Models\Order;
 use App\Notifications\ActionFailedNotification;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +76,6 @@ class OrderController extends Controller
             ], 500);
         }
     }
-
    public function updateStatus(Request $request, Order $order)
     {
     $validated = $request->validate([
@@ -94,7 +94,14 @@ class OrderController extends Controller
         'message' => 'Order updated and notification sent.',
         'order' => $order
     ]);
-
+    //???? باستخدام event & listener
+    //?  public function updateStatus(Request $request, $id)
+    //? {
+    //?   $order = Order::findOrFail($id);
+    //?   $order->update(['status' => $request->status]);
+    //?   event(new OrderStatusChanged($order));
+    //?   return response()->json(['message' => 'تم تحديث الحالة بنجاح']);
+    //?}
     }
 
     public function destroy(Order $order)
