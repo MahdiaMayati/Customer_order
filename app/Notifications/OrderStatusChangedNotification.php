@@ -53,6 +53,4 @@ class OrderStatusChangedNotification extends Notification
             'message'  => "تغيرت حالة طلبك رقم {$this->order->id} إلى {$this->order->status}"
         ];
     }
-    // أضف هذه الدالة داخل الكلاس
-
 }
