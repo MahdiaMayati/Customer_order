@@ -36,8 +36,10 @@ class ActionFailedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'error' => $this->errorDetails,
-            'time' => now()->toDateTimeString(),
+        'message' => 'فشلت العملية: ' . $this->errorDetails,
+        'error' => $this->errorDetails,
+        'type' => 'payment_error',
+        'time' => now()->toDateTimeString(),
         ];
     }
 }

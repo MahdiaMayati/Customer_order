@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderStatusChangedNotification extends Notification
+class PaymentSuccessNotification extends Notification
 {
     use Queueable;
-    protected $order;
-    public function __construct($order)
+
+    /**
+     * Create a new notification instance.
+     */
+    public function __construct()
     {
-       $this->order = $order;
+        //
     }
-      public function onChannels()
-    {
-    return ['database'];
-    }
+
     /**
      * Get the notification's delivery channels.
      *
@@ -48,9 +48,7 @@ class OrderStatusChangedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'order_id' => $this->order->id,
-            'status'   => $this->order->status,
-            'message'  => "تغيرت حالة طلبك رقم {$this->order->id} إلى {$this->order->status}"
+            //
         ];
     }
 }

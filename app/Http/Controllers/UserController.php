@@ -8,6 +8,7 @@ use App\Notifications\UserCreatedNotification;
 use App\Services\NotificationService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -21,9 +22,15 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+    try {
         $user = User::create($request->all());
         $this->notificationService->send($user, new UserCreatedNotification($user));
         return response()->json(['message' => 'User created and notified']);
+
+        } catch (\Exception $e) {
+        Log::error("فشل إنشاء المستخدم: " . $e->getMessage());
+        return response()->json(['message' => 'حدث خطأ أثناء إنشاء المستخدم'], 500);
+        }
     }
 
     public function login(Request $request)
@@ -39,7 +46,7 @@ class UserController extends Controller
         return response()->json(['message' => 'بيانات الدخول غير صحيحة'], 401);
     }
     $token = $user->createToken('auth_token')->plainTextToken;
-
+    $this->notificationService->send($user, new \App\Notifications\WelcomeNewUserNotification($user));
     return response()->json([
         'access_token' => $token,
         'token_type' => 'Bearer',

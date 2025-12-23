@@ -57,7 +57,7 @@
 #     }
 # POST http://127.0.0.1:8000/api/notifications/51ba3af0-0060-47d2-a5be-6fb65cb1d322/read
 # Accept: application/json
-# Authorization: Bearer 4|X17Ljk4gHQyN5w6FdbdPOkNkXSvh0CXXjE0pHgJqa8c922c9
+# Authorization: Bearer
 
 # GET http://127.0.0.1:8000/api/notifications
 # Accept: application/json
@@ -71,3 +71,39 @@
 # {
 #     "status": "pending"
 # }
+
+# (User Created)
+# POST http://127.0.0.1:8000/api/users/store
+# Content-Type: application/json
+# Accept: application/json
+
+# {
+#     "name": "Ahmad Test",
+#     "email": "ahmad.test@example.com",
+#     "password": "password123",
+#     "password_confirmation": "password123"
+# }
+
+# ####
+#
+# PATCH http://127.0.0.1:8000/api/orders/1/status
+# Authorization: Bearer
+# Content-Type: application/json
+# Accept: application/json
+
+# {
+#     "status": "paid"
+# }
+
+
+# POST http://127.0.0.1:8000/api/payment/process
+# Authorization: Bearer 17|nRdyg8s9oh9PamMCfuFQFpw1HgZ7cMEDEBrys7Ct1be385fa
+# Content-Type: application/json
+# Accept: application/json
+
+# {
+#     "amount": 1
+# }
+# GET http://127.0.0.1:8000/api/notifications
+# Authorization: Bearer
+# Accept: application/json

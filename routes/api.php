@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications', [UserController::class, 'getNotifications']);
     Route::post('/notifications/{id}/read', [UserController::class, 'markAsRead']);
     Route::post('/notifications/read-all', [UserController::class, 'markAllAsRead']);
+    Route::post('/payment/process', [OrderController::class, 'processPayment']);
 });
 // Route::get('/test-notify', function () {
 //     $user = App\Models\User::first();
