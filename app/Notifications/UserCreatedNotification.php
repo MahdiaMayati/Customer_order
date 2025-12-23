@@ -17,7 +17,7 @@ class UserCreatedNotification extends Notification
     }
     public function onChannels()
     {
-    return ['database']; 
+    return ['database'];
     }
 
     /**
@@ -51,7 +51,6 @@ class UserCreatedNotification extends Notification
     {
         return [
            'message' => 'تم إنشاء مستخدم جديد: ' . $this->data['name'],
-        //    'id' => $this->data['id']
             'user_id'=>$this->data['id']
         ];
     }
