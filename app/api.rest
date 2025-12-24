@@ -105,5 +105,5 @@
 #     "amount": 1
 # }
 # GET http://127.0.0.1:8000/api/notifications
-# Authorization: Bearer
+# Authorization: Bearer 17|nRdyg8s9oh9PamMCfuFQFpw1HgZ7cMEDEBrys7Ct1be385fa
 # Accept: application/json

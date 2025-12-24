@@ -52,16 +52,17 @@ class OrderController extends Controller
     {
         return response()->json($order->load('customer', 'items'));
     }
-//////? الاشعارات
-       public function __construct(NotificationService $notificationService)
+        //////? الاشعارات
+
+    public function __construct(NotificationService $notificationService)
     {
         $this->notificationService = $notificationService;
     }
 
     public function processPayment(Request $request)
-{
+   {
     try {
-        
+
         if ($request->amount > auth()->user()->balance) {
             throw new \Exception("رصيد الحساب غير كافٍ لإتمام العملية");
         }
@@ -77,6 +78,7 @@ class OrderController extends Controller
         //     'message' => 'تمت عملية الدفع بنجاح بقيمة ' . $request->amount,
         //     'balance_remaining' => $user->balance
         // ], 200);
+
         //?? استخدام event & listener
         event(new PaymentProcessed($user, $request->amount));
         return response()->json(['message' => 'تم الدفع بنجاح'], 200);
@@ -92,8 +94,6 @@ class OrderController extends Controller
         ], 500);
     }
 }
-
-
 //    public function updateStatus(Request $request, Order $order)
 //     {
 //     $validated = $request->validate([
@@ -115,7 +115,7 @@ class OrderController extends Controller
 // }
     //???? باستخدام event & listener
       public function updateStatus(Request $request, $id){
-     $order = Order::findOrFail($id);
+       $order = Order::findOrFail($id);
        $order->update(['status' => $request->status]);
       if ($order->user) {
          event(new OrderStatusChanged($order));

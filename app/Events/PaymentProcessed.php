@@ -14,23 +14,15 @@ class PaymentProcessed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
    public $user;
-public $amount;
+   public $amount;
 
-public function __construct($user, $amount)
- {
+    public function __construct($user, $amount)
+    {
     $this->user = $user;
     $this->amount = $amount;
- }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
+    }
+    
     public function broadcastOn(): array
     {
         return [

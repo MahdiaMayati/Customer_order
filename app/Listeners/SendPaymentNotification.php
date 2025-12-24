@@ -9,17 +9,10 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class SendPaymentNotification
 {
-    /**
-     * Create the event listener.
-     */
     public function __construct()
     {
         //
     }
-
-    /**
-     * Handle the event.
-     */
   public function handle(PaymentProcessed $event)
 {
    $event->user->notify(new \App\Notifications\PaymentSuccessNotification($event->amount));
