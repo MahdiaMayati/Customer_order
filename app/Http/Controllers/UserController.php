@@ -57,12 +57,13 @@ class UserController extends Controller
     {
     //$user = auth()->user();
     // $notification = $user->notifications()->where('id', $id)->firstOrFail();
-    // $user = \App\Models\User::first();
+    $user = \App\Models\User::first();
     $notification = auth()->user()->notifications()->findOrFail($id);
     $notification->markAsRead();
 
     return response()->json(['message' => 'تم تحديد الإشعار كمقروء']);
     }
+
     public function markAllAsRead()
     {
         auth()->user()->unreadNotifications->markAsRead();
